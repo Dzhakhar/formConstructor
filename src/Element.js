@@ -81,7 +81,6 @@ export class Element {
 	}
 
 	refresh() {
-		// переписать ссылку на объект, дабы редакс понял что стэйт изменился
 		this.recomputeHash();
 	}
 
