@@ -60,33 +60,41 @@ const defaultState = {
 function reducer(state = defaultState, action) {
 	switch (action.type) {
 		case SET_VIEW_TYPE:
-			state.viewType = action.payload;
-			return {...state};
+			return {
+				...state,
+				viewType: action.payload
+			};
 		case CREATE_ELEMENT:
 			const newInput = new Element(action.payload);
 
 			state.elements.push(newInput);
-			state.elements = [...state.elements];
 
-			return {...state};
+			return {
+				...state,
+				elements: [...state.elements]
+			};
 		case ADD_CHILD:
 			const {inputType, parent} = action.payload;
 			const childComponent = new Element(inputType);
 			parent.addChild(childComponent);
-			state.elements = [...state.elements];
 
-			return {...state};
+			return {
+				...state,
+				elements: [...state.elements]
+			};
 		case UPDATE_NODE:
 			const nodeRef = action.payload;
 			const nodeIndex = state.elements.findIndex((element) => element === nodeRef);
 			state.elements[nodeIndex] = {...nodeRef};
-			state.elements = [...state.elements];
-			return {...state};
+			return {
+				...state,
+				elements: [...state.elements]
+			};
 		case DELETE_ELEMENT:
-			const foundElementIndex = state.elements.findIndex((element) => element === action.payload);
-			state.elements.splice(foundElementIndex, 1);
-			state.elements = [...state.elements];
-			return {...state};
+			return {
+				...state,
+				elements: [...state.elements].filter((item) => item !== action.payload)
+			};
 		default:
 			return state;
 	}
