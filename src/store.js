@@ -93,7 +93,7 @@ function reducer(state = defaultState, action) {
 		case DELETE_ELEMENT:
 			return {
 				...state,
-				elements: [...state.elements].filter((item) => item !== action.payload)
+				elements: state.elements.filter((item) => item !== action.payload)
 			};
 		default:
 			return state;
