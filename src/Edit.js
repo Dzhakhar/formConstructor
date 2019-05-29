@@ -11,13 +11,16 @@ export class Edit extends React.PureComponent {
 		};
 	}
 
-	setValue = (value) => {
+	setValue = () => {
+		const selectedOptions = this.refs["select"].selectedOptions;
+		const value = selectedOptions && selectedOptions[0] ? this.refs["select"].selectedOptions[0].value : "";
 		this.setState({
 			selectedElement: value
 		});
 	}
 
 	createElement = () => {
+		console.log(this.state.selectedElement);		
 		if(this.state.selectedElement) {
 			this.props.createElement(this.state.selectedElement);
 		}
@@ -33,8 +36,8 @@ export class Edit extends React.PureComponent {
 		return <div>
 			<div className="ui form">
 	          <div className="field">
-	            <select onChange={(e) => this.setValue(e.target.value)}>
-	              <option defaultValue="">Добавить поле</option>
+	            <select ref={"select"} onChange={this.setValue}>
+	              <option value="">Добавить поле</option>
 	              {allowedElements.map(this.renderItem)}
 	            </select>
 	          </div>
